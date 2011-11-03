@@ -1,3 +1,9 @@
+# revision 17087
+# category Package
+# catalog-ctan /macros/latex/contrib/boxedminipage
+# catalog-date 2010-02-23 16:09:16 +0100
+# catalog-license pd
+# catalog-version undef
 Name:		texlive-boxedminipage
 Version:	20100223
 Release:	1
@@ -38,6 +44,7 @@ like minipage, but with a frame around it.
 %{_texmfdistdir}/tex/latex/boxedminipage/boxedminipage.sty
 %doc %{_texmfdistdir}/doc/latex/boxedminipage/boxedminipage.pdf
 %doc %{_texmfdistdir}/doc/latex/boxedminipage/boxedminipage.tex
+%doc %{_tlpkgobjdir}/*.tlpobj
 
 #-----------------------------------------------------------------------
 %prep
@@ -48,3 +55,5 @@ like minipage, but with a frame around it.
 %install
 mkdir -p %{buildroot}%{_texmfdistdir}
 cp -fpar tex doc %{buildroot}%{_texmfdistdir}
+mkdir -p %{buildroot}%{_tlpkgobjdir}
+cp -fpa tlpkg/tlpobj/*.tlpobj %{buildroot}%{_tlpkgobjdir}
