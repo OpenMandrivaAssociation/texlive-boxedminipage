@@ -1,40 +1,29 @@
-Name:		texlive-boxedminipage
-Version:	54827
-Release:	2
-Summary:	A package for producing framed minipages
+%global tl_name boxedminipage
+%global tl_revision 77682
+
+Name:		texlive-%{tl_name}
+Epoch:		1
+Version:	1.1
+Release:	%{tl_revision}.1
+Summary:	Framed minipages of a specified total width (text and frame combined)
 Group:		Publishing
 URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/boxedminipage
-License:	PD
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/boxedminipage.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/boxedminipage.doc.r%{version}.tar.xz
+License:	lppl1.3c
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/boxedminipage.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/boxedminipage.doc.r%{tl_revision}.tar.xz
+Source2:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/boxedminipage.source.r%{tl_revision}.tar.xz
 BuildArch:	noarch
+BuildSystem:	texlive
 BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+%texlive_base_requires
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-LaTeX package which defines the boxedminipage environment --
-like minipage, but with a frame around it.
+The package essentially just wraps a minipage within an \fbox. However,
+while \fbox{\begin{minipage}{\linewidth}...\end{minipage}} juts out into
+the margin, \begin{boxedminipage}...\end{boxedminipage} does not.
+Instead, it subtracts the frame's dimensions from the specified
+dimensions of the minipage before typesetting the minipage. Note: The
+package was formerly known as boxedminipage2e and now replaces Mario
+Wolczko's earlier boxedminipage package.
 
-%post
-%{_sbindir}/texlive.post
-
-%postun
-if [ $1 -eq 0 ]; then
-	%{_sbindir}/texlive.post
-fi
-
-#-----------------------------------------------------------------------
-%files
-%{_texmfdistdir}/tex/latex/boxedminipage
-%doc %{_texmfdistdir}/doc/latex/boxedminipage
-
-#-----------------------------------------------------------------------
-%prep
-%autosetup -p1 -c -a1
-
-%build
-
-%install
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -fpar tex doc %{buildroot}%{_texmfdistdir}
